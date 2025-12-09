@@ -1,0 +1,140 @@
+/* ================= coffee tea font ================= */
+@font-face {
+  font-family: "coffee-tea";
+  src: url("/src/fonts/coffee-tea.ttf") format("truetype");
+}
+
+/* ================= PAGE ================= */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: coffee-tea, sans-serif;
+}
+
+.main-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url("./img/Background-redesign.webp") no-repeat center center fixed;
+  background-size: cover;
+  z-index: 1;
+}
+
+.gold {
+  position: absolute;
+  width: 65vw;
+  height: 61vh;
+  left: 15vw;
+  top: -9.4vh;
+  background: url("./img/Mahotsav-gold.webp") no-repeat center center;
+  background-size: contain;
+  z-index: 2;
+}
+
+.flower {
+  position: absolute;
+  width: 67.9vw;
+  height: 110.7vh;
+  left: 16.5vw;
+  top: 32.1vh;
+  background: url("./img/flower.webp") no-repeat center center;
+  background-size: contain;
+  z-index: 3;
+}
+
+.vignan-logo {
+  position: absolute;
+  width: 21.3vw;
+  height: 21.3vh;
+  right: 0;
+  top: -3vh;
+  background: url("./img/Vignan-logo.webp") no-repeat center center;
+  background-size: contain;
+  z-index: 4;
+}
+
+/* ================= TIMER ================= */
+:root {
+  --gold-yellow: #FBC02D;
+  --white: #FFFFFF;
+  --off-white: #E0E0E0;
+}
+
+.timer {
+  position: absolute;
+  top: 50%;
+  left: 49.5%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 14px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 20px 36px;
+  border-radius: 16px;
+  background: rgba(61, 0, 84, 0.8);
+  color: var(--white);
+  box-shadow: 0 0 30px rgba(251, 192, 45, 0.4);
+  animation: timerGlow 1.5s infinite alternate;
+  z-index: 5;
+}
+
+@keyframes timerGlow {
+  0% { box-shadow: 0 0 20px rgba(251,192,45,0.2); }
+  100% { box-shadow: 0 0 35px rgba(251,192,45,0.8); }
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.digit {
+  font-size: 2.6rem;
+  font-weight: 800;
+  font-family: 'poppins',sans-serif;
+  color: var(--gold-yellow);;
+  text-shadow: 0 0 12px rgba(251,192,45,0.7);
+  transition: transform 0.3s ease, opacity 0.9s ease;
+}
+
+/* ANIMATION WHEN NUMBER CHANGES */
+.digit.change {
+  animation: rotateOnce 0.45s ease-out;
+}
+
+@keyframes rotateOnce {
+  0% {
+    transform: scale(1) rotateX(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotateX(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotateX(360deg);
+    opacity: 1;
+  }
+}
+
+
+
+.label {
+  font-size: 1.2rem;
+  color: var(--off-white);
+  margin-top: 4px;
+  left: 2px;
+  letter-spacing: 1px;
+}
