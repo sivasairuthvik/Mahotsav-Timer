@@ -1,68 +1,16 @@
-body {
+/* ================= GLOBAL RESET ================= */
+html, body {
   margin: 0;
   padding: 0;
-  background: #fff;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: #2b0a3d; /* prevents white flash */
   font-family: 'Poppins', sans-serif;
 }
 
-/* Fullscreen Container */
-.main-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Background images */
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  background-size: cover;
-  z-index: 1;
-}
-
-/* Gold */
-.gold {
-  position: absolute;
-  width: 60vw;
-  height: 55vh;
-  left: 19vw;
-  top: -9.4vh;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  z-index: 2;
-}
-
-/* Flower */
-.flower {
-  position: absolute;
-  width: 69.9vw;
-  height: 116.7vh;
-  left: 15vw;
-  top: 32.1vh;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  z-index: 3;
-}
-
-/* Vignan Logo */
-.vignan-logo {
-  position: absolute;
-  width: 20vw;
-  height: 20vh;
-  right: 0;
-  top: -3vh;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  z-index: 4;
+/* Root container */
+#root {
+  width: 100%;
+  height: 100%;
 }

@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./ComingSoon.css";
 
-export default function ComingSoon() {
-  const eventDate = new Date("Feb 5, 2026 00:00:00").getTime();
+const eventDate = new Date("Feb 5, 2026 00:00:00").getTime();
 
-  const [time, setTime] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+function getTimeLeft() {
+  const now = Date.now();
+  const diff = eventDate - now;
+
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+  };
+}
+
+export default function ComingSoon() {
+  // ⬅️ INITIALIZED WITH REAL VALUES
+  const [time, setTime] = useState(getTimeLeft);
 
   const [animate, setAnimate] = useState({
     days: false,
@@ -18,36 +26,18 @@ export default function ComingSoon() {
     seconds: false,
   });
 
-  const [loading, setLoading] = useState(true);
-
-  // PRELOADER
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 600);
-  }, []);
-
-  // COUNTDOWN LOGIC
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = Date.now();
-      const dist = eventDate - now;
-
-      const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-      const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((dist % (1000 * 60)) / 1000);
+      const newTime = getTimeLeft();
 
       setTime(prev => {
-        const newAnimation = {
-          days: prev.days !== d,
-          hours: prev.hours !== h,
-          minutes: prev.minutes !== m,
-          seconds: prev.seconds !== s,
-        };
+        setAnimate({
+          days: prev.days !== newTime.days,
+          hours: prev.hours !== newTime.hours,
+          minutes: prev.minutes !== newTime.minutes,
+          seconds: prev.seconds !== newTime.seconds,
+        });
 
-        // Execute animation only on changed digit
-        setAnimate(newAnimation);
-
-        // Remove animation class automatically after animation ends
         setTimeout(() => {
           setAnimate({
             days: false,
@@ -55,9 +45,9 @@ export default function ComingSoon() {
             minutes: false,
             seconds: false,
           });
-        }, 500);
+        }, 400);
 
-        return { days: d, hours: h, minutes: m, seconds: s };
+        return newTime;
       });
     }, 1000);
 
@@ -65,55 +55,24 @@ export default function ComingSoon() {
   }, []);
 
   return (
-    <>
-      {loading && (
-        <div id="preloader">
-          <div className="loader-container">
-            {Array.from({ length: 13 }).map((_, i) => (
-              <div key={i} className="particle"></div>
-            ))}
-          </div>
-        </div>
-      )}
+    <div className="main-container">
+      <div className="background" />
+      <div className="gold" />
+      <div className="flower" />
+      <div className="vignan-logo" />
 
-      <div className="main-container">
-        <div className="background"></div>
-        <div className="gold"></div>
-        <div className="flower"></div>
-        <div className="vignan-logo"></div>
-
-        <div className="timer">
-
-          <div className="time-unit">
-            <div className={`digit ${animate.days ? "change" : ""}`}>
-              {time.days}
+      <div className="timer">
+        {["days", "hours", "minutes", "seconds"].map(unit => (
+          <div className="time-unit" key={unit}>
+            <div className={`digit ${animate[unit] ? "change" : ""}`}>
+              {time[unit]}
             </div>
-            <div className="label">Days</div>
-          </div>
-
-          <div className="time-unit">
-            <div className={`digit ${animate.hours ? "change" : ""}`}>
-              {time.hours}
+            <div className="label">
+              {unit.charAt(0).toUpperCase() + unit.slice(1)}
             </div>
-            <div className="label">Hours</div>
           </div>
-
-          <div className="time-unit">
-            <div className={`digit ${animate.minutes ? "change" : ""}`}>
-              {time.minutes}
-            </div>
-            <div className="label">Minutes</div>
-          </div>
-
-          <div className="time-unit">
-            <div className={`digit ${animate.seconds ? "change" : ""}`}>
-              {time.seconds}
-            </div>
-            <div className="label">Seconds</div>
-          </div>
-
-        </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
