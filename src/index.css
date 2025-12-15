@@ -2,5 +2,5 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background: #2b0a3d; /* same as Mahotsav bg */
+  background: radial-gradient(circle at center, #3d0054, #1a0033); /* same as Mahotsav bg */
 }
